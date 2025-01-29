@@ -40,20 +40,24 @@ MYSQL_PASSWORD=1234=user_password
 ### 1.저장소 클론
 ```1.
 git clone https://github.com/your_username/your_repository.git
+```
 
 ### 2.클론한 디렉토리로 이동
 ```2.
 cd your_repository
+```
 
 ### 3. 프론트앤드 디렉토리로 이동 및 의존성 설치
 ```3.
 cd auth_front
 npm install
+```
 
 ### 4. 백엔드 디렉토리로 이동 및 의존성 설치
 ```4.
 cd ../auth_back
 ./mvnw install
+```
 
 ### 5. 환경변수 파일 작성(.env)
 ```5.
@@ -66,15 +70,17 @@ MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
 MYSQL_PASSWORD=1234=user_password
+```
 
 ### 6. docker-compose 실행
 ```6.
 docker-compose up -d
+```
 
 ### 7. 브라우저 접속
 ```7.
 http://localhost
-
+```
 
 
 
