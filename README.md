@@ -44,7 +44,7 @@ git clone https://github.com/Habeomsu/auth-template.git
 
 ### 2.클론한 디렉토리로 이동
 ```2.
-cd your_repository
+cd auth-template
 ```
 
 ### 3. 프론트앤드 디렉토리로 이동 및 의존성 설치
