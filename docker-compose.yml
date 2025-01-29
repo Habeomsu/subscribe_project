@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./db/store:/var/lib/mysql
+    networks:
+      - network
+
+  auth-back:
+    build:
+      context: ./auth_back
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/auth?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+    depends_on:
+      - mysql
+    networks:
+      - network
+
+  auth-front:
+    build:
+      context: ./auth_front
+    ports:
+      - '3000:3000' # React 앱은 3000번 포트에서 실행
+    restart: always
+    networks:
+      - network
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    depends_on:
+      - auth-back
+      - auth-front
+    ports:
+      - '80:80' # 80 포트로 요청을 처리
+    networks:
+      - network
+
+networks:
+  network:
