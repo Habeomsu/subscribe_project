@@ -59,12 +59,15 @@ cd ../auth_back
 ./mvnw install
 ```
 
-### 5. 환경변수 파일 작성(.env)
+### 5. 환경변수 파일 생성(.env)
 ```5.
 cd ..
 touch .env
 nano .env
+```
 
+### 6. 환경변수 파일 작성(.env)
+```6.
 JWT_SECRET_KEY=your_jwt_token
 MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
@@ -72,13 +75,13 @@ MYSQL_USER=user_name
 MYSQL_PASSWORD=1234=user_password
 ```
 
-### 6. docker-compose 실행
-```6.
+### 7. docker-compose 실행
+```7.
 docker-compose up -d
 ```
 
-### 7. 브라우저 접속
-```7.
+### 8. 브라우저 접속
+```8.
 http://localhost
 ```
 
