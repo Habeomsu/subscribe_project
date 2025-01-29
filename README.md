@@ -32,3 +32,11 @@ MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
 MYSQL_PASSWORD=1234=user_password
 ```
+
+## 설치 방법 및 실행
+
+다음 단계에 따라 프로젝트를 설치하고 실행하세요:
+
+### 1.저장소 클론
+
+git clone https://github.com/your_username/your_repository.git
