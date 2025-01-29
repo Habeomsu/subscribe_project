@@ -39,7 +39,7 @@ MYSQL_PASSWORD=1234=user_password
 
 ### 1.저장소 클론
 ```1.
-git clone https://github.com/your_username/your_repository.git
+git clone https://github.com/Habeomsu/auth-template.git
 ```
 
 ### 2.클론한 디렉토리로 이동
