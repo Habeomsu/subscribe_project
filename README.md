@@ -14,7 +14,8 @@
 
 - **백엔드**: Spring Boot
 - **프론트엔드**: React
-- **데이터베이스**: (사용하는 데이터베이스를 명시하세요, 예: MySQL, PostgreSQL 등)
+- **데이터베이스**: Mysql
+- **웹 서버**: Nginx
 - **도구**: Docker, Docker Compose
 
 ## 환경 변수 관리
@@ -25,8 +26,9 @@
 
 ```env
 # .env 파일 예시
-DATABASE_URL=jdbc:mysql://localhost:3306/your_database
-JWT_SECRET=your_jwt_secret
-ACCESS_TOKEN_EXPIRATION=3600
-REFRESH_TOKEN_EXPIRATION=7200
+JWT_SECRET_KEY=your_jwt_token
+MYSQL_ROOT_PASSWORD=your_db_password
+MYSQL_DATABASE=your_db
+MYSQL_USER=user_name
+MYSQL_PASSWORD=1234=user_password
 ```
