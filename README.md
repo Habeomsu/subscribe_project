@@ -31,6 +31,7 @@ MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
 MYSQL_PASSWORD=user_password
+SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/{데이터베이스 이름}?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
 ```
 
 ## 설치 방법 및 실행
@@ -38,28 +39,33 @@ MYSQL_PASSWORD=user_password
 다음 단계에 따라 프로젝트를 설치하고 실행하세요:
 
 ### 1.저장소 클론
+
 ```1.
 git clone https://github.com/Habeomsu/auth-template.git
 ```
 
 ### 2.클론한 디렉토리로 이동
+
 ```2.
 cd auth-template
 ```
 
 ### 3. 프론트앤드 디렉토리로 이동 및 의존성 설치
+
 ```3.
 cd auth_front
 npm install
 ```
 
 ### 4. 백엔드 디렉토리로 이동 및 의존성 설치
+
 ```4.
 cd ../auth_back
 ./mvnw install
 ```
 
 ### 5. 환경변수 파일 생성(.env)
+
 ```5.
 cd ..
 touch .env
@@ -67,25 +73,24 @@ nano .env
 ```
 
 ### 6. 환경변수 파일 작성(.env)
+
 ```6.
 JWT_SECRET_KEY=your_jwt_token
 MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
 MYSQL_PASSWORD=user_password
+SPRING_DATASOURCE_URL=your_datasource
 ```
 
 ### 7. docker-compose 실행
+
 ```7.
 docker-compose up -d
 ```
 
 ### 8. 브라우저 접속
+
 ```8.
 http://localhost
 ```
-
-
-
-
-
