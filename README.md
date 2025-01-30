@@ -30,7 +30,7 @@ JWT_SECRET_KEY=your_jwt_token
 MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
-MYSQL_PASSWORD=1234=user_password
+MYSQL_PASSWORD=user_password
 ```
 
 ## 설치 방법 및 실행
@@ -72,7 +72,7 @@ JWT_SECRET_KEY=your_jwt_token
 MYSQL_ROOT_PASSWORD=your_db_password
 MYSQL_DATABASE=your_db
 MYSQL_USER=user_name
-MYSQL_PASSWORD=1234=user_password
+MYSQL_PASSWORD=user_password
 ```
 
 ### 7. docker-compose 실행
