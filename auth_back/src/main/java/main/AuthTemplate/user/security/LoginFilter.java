@@ -35,8 +35,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private final JWTUtil jwtUtil;
     private final RefreshRepository refreshRepository;
 
-
-    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, RefreshRepository refreshRepository) {
+    public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil,
+            RefreshRepository refreshRepository) {
 
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
@@ -44,9 +44,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         setFilterProcessesUrl("/auth/login");
     }
 
-
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
         JoinDto loginDTO = new JoinDto();
 
@@ -63,18 +63,20 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
 
-        //스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
+        // 스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password,
+                null);
 
-        //token에 담은 검증을 위한 AuthenticationManager로 전달
+        // token에 담은 검증을 위한 AuthenticationManager로 전달
         return authenticationManager.authenticate(authToken);
     }
 
-    //로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
+    // 로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
+            Authentication authentication) throws IOException {
 
-        //UserDetails
+        // UserDetails
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         String username = customUserDetails.getUsername();
 
@@ -84,8 +86,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-        String access = jwtUtil.createJwt("access",username, role, 10000L);
-        String refresh = jwtUtil.createJwt("refresh",username, role, 86400000L);
+        String access = jwtUtil.createJwt("access", username, role, 600000L);
+        String refresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
 
         addRefresh(username, refresh, 86400000L);
 
@@ -93,11 +95,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         response.addCookie(createCookie("refresh", refresh));
 
         // ApiResult 생성
-        ApiResult<?> apiResult = ApiResult.onSuccess(SuccessStatus._OK,new UserResponseDto.UserDto(username,role));
+        ApiResult<?> apiResult = ApiResult.onSuccess(SuccessStatus._OK, new UserResponseDto.UserDto(username, role));
 
         JsonResponseUtil.sendJsonResponse(response, HttpServletResponse.SC_OK, apiResult);
 
     }
+
     private void addRefresh(String username, String refresh, Long expiredMs) {
 
         Date date = new Date(System.currentTimeMillis() + expiredMs);
@@ -108,16 +111,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
                 .expiration(date.toString())
                 .build();
 
-
         refreshRepository.save(refresh_data);
     }
 
-
-    //로그인 실패시 실행하는 메소드
+    // 로그인 실패시 실행하는 메소드
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException {
         // ApiResult 생성
-        ApiResult<?> apiResult = ApiResult.onFailure(ErrorStatus._USERNAME_NOT_FOUND.getCode(),ErrorStatus._USERNAME_NOT_FOUND.getMessage(), null);
+        ApiResult<?> apiResult = ApiResult.onFailure(ErrorStatus._USERNAME_NOT_FOUND.getCode(),
+                ErrorStatus._USERNAME_NOT_FOUND.getMessage(), null);
 
         JsonResponseUtil.sendJsonResponse(response, HttpServletResponse.SC_NOT_FOUND, apiResult);
 
@@ -126,13 +129,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     private Cookie createCookie(String key, String value) {
 
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(24*60*60);
-        //cookie.setSecure(true);
+        cookie.setMaxAge(24 * 60 * 60);
+        // cookie.setSecure(true);
         // cookie.setPath("/");
         cookie.setHttpOnly(true);
 
         return cookie;
     }
-
 
 }

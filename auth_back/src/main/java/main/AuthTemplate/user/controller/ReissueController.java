@@ -30,9 +30,10 @@ public class ReissueController {
         this.jwtUtil = jwtUtil;
         this.refreshRepository = refreshRepository;
     }
-    @Operation(summary = "토큰 재발급 API",description = "POST 쿠키에 refresh토큰 포함")
+
+    @Operation(summary = "토큰 재발급 API", description = "POST 쿠키에 refresh토큰 포함")
     @PostMapping("/auth/reissue")
-    public ApiResult<?> reissue(HttpServletRequest request, HttpServletResponse response){
+    public ApiResult<?> reissue(HttpServletRequest request, HttpServletResponse response) {
 
         String refresh = null;
         Cookie[] cookies = request.getCookies();
@@ -47,22 +48,26 @@ public class ReissueController {
         if (refresh == null) {
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            //response status code
-            return ApiResult.onFailure(ErrorStatus._NOTFOUND_REFRESH_TOKEN.getCode(),ErrorStatus._NOTFOUND_REFRESH_TOKEN.getMessage(), null);
+            // response status code
+            return ApiResult.onFailure(ErrorStatus._NOTFOUND_REFRESH_TOKEN.getCode(),
+                    ErrorStatus._NOTFOUND_REFRESH_TOKEN.getMessage(), null);
         }
 
         try {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return ApiResult.onFailure(ErrorStatus._EXFIRED_REFRESH_TOKEN.getCode(),ErrorStatus._EXFIRED_REFRESH_TOKEN.getMessage(), null);
+            return ApiResult.onFailure(ErrorStatus._EXFIRED_REFRESH_TOKEN.getCode(),
+                    ErrorStatus._EXFIRED_REFRESH_TOKEN.getMessage(), null);
         } catch (SignatureException e) { // 서명 오류 처리
 
-            return ApiResult.onFailure(ErrorStatus._REFRESH_TOKEN_SIGNATURE_ERROR.getCode(),ErrorStatus._REFRESH_TOKEN_SIGNATURE_ERROR.getMessage(), null);
+            return ApiResult.onFailure(ErrorStatus._REFRESH_TOKEN_SIGNATURE_ERROR.getCode(),
+                    ErrorStatus._REFRESH_TOKEN_SIGNATURE_ERROR.getMessage(), null);
 
         } catch (JwtException e) {
             // 기타 JWT 관련 오류 처리
-            return ApiResult.onFailure(ErrorStatus._INVALID_REFRESH_TOKEN.getCode(),ErrorStatus._INVALID_REFRESH_TOKEN.getMessage(), null);
+            return ApiResult.onFailure(ErrorStatus._INVALID_REFRESH_TOKEN.getCode(),
+                    ErrorStatus._INVALID_REFRESH_TOKEN.getMessage(), null);
 
         }
 
@@ -71,37 +76,35 @@ public class ReissueController {
 
         if (!category.equals("refresh")) {
 
-            //response status code
+            // response status code
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return ApiResult.onFailure(ErrorStatus._INVALID_REFRESH_TOKEN.getCode(),ErrorStatus._INVALID_REFRESH_TOKEN.getMessage(),null);
+            return ApiResult.onFailure(ErrorStatus._INVALID_REFRESH_TOKEN.getCode(),
+                    ErrorStatus._INVALID_REFRESH_TOKEN.getMessage(), null);
         }
 
         String username = jwtUtil.getUsername(refresh);
         String role = jwtUtil.getRole(refresh);
 
-        //make new JWT
-        String newAccess = jwtUtil.createJwt("access", username, role, 20000L);
+        // make new JWT
+        String newAccess = jwtUtil.createJwt("access", username, role, 600000L);
         String newRefresh = jwtUtil.createJwt("refresh", username, role, 86400000L);
 
         refreshRepository.deleteByUsername(username);
         addRefresh(username, newRefresh, 86400000L);
 
-
-        //response
+        // response
         response.setHeader("Authorization", "Bearer " + newAccess);
         response.addCookie(createCookie("refresh", newRefresh));
 
-
         return ApiResult.onSuccess(SuccessStatus._OK);
-
 
     }
 
     private Cookie createCookie(String key, String value) {
 
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(24*60*60);
-        //cookie.setSecure(true);
+        cookie.setMaxAge(24 * 60 * 60);
+        // cookie.setSecure(true);
         // cookie.setPath("/");
         cookie.setHttpOnly(true);
 
