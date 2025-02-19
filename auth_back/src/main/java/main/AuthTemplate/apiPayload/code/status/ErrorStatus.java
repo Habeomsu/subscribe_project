@@ -29,7 +29,8 @@ public enum ErrorStatus implements BaseErrorCode {
 
     //username
     _EXIST_USERNAME(HttpStatus.BAD_REQUEST,"USER400_1","아이디가 존재합니다."),
-    _USERNAME_NOT_FOUND(HttpStatus.NOT_FOUND,"USER400_2","회원가입된 아이디가 아닙니다.")
+    _USERNAME_NOT_FOUND(HttpStatus.NOT_FOUND,"USER400_2","회원가입된 아이디가 아닙니다."),
+    _NOT_MATCH_EMAIL(HttpStatus.BAD_REQUEST,"USER400_3","인증번호가 일치하지 않습니다.")
     ;
 
     private final HttpStatus httpStatus;

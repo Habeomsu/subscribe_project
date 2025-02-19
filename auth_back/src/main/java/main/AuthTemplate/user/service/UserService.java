@@ -29,6 +29,7 @@ public class UserService {
 
         String username=joinDto.getUsername();
         String password=joinDto.getPassword();
+        String email=joinDto.getEmail();
 
         boolean isexist = userRepository.existsByUsername(username);
         if (isexist) {
@@ -39,6 +40,7 @@ public class UserService {
                     .username(username)
                     .password(bCryptPasswordEncoder.encode(password))
                     .role(Role.ROLE_USER)
+                    .email(email)
                     .build();
 
         userRepository.save(data);

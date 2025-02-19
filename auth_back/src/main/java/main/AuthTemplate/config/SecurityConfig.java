@@ -61,7 +61,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui/index.html").permitAll()
-                        .requestMatchers("/login","/auth/join").permitAll()
+                        .requestMatchers("/login","/auth/join","/auth/email/signup","/auth/email/checking").permitAll()
                         .requestMatchers("/auth/reissue").permitAll()
                         .anyRequest().authenticated()
                 );
