@@ -24,9 +24,9 @@ services:
     networks:
       - network
 
-  auth-back:
+  subscribe-back:
     build:
-      context: ./auth_back
+      context: ./subscribe_back
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
@@ -45,9 +45,9 @@ services:
     networks:
       - network
 
-  auth-front:
+  subscribe-front:
     build:
-      context: ./auth_front
+      context: ./subscribe_front
     ports:
       - '3000:3000' # React 앱은 3000번 포트에서 실행
     restart: always
@@ -59,8 +59,8 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     depends_on:
-      - auth-back
-      - auth-front
+      - subscribe-back
+      - subscribe-front
     ports:
       - '80:80' # 80 포트로 요청을 처리
     networks:

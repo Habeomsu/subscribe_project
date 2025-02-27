@@ -1,0 +1,54 @@
+.home-page-container {
+    padding: 20px; /* 전체 컨테이너에 패딩 추가 */
+  }
+  
+  .subscription-container {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 감싸기 */
+    margin-top: 20px; /* 주제 목록과 환영 메시지 간의 간격 추가 */
+  }
+  
+  .topic-list {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    flex-wrap: wrap; /* 요소가 넘칠 경우 다음 줄로 감싸기 */
+  }
+  
+  .topic-card {
+    border: 1px solid #ccc; /* 카드 테두리 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 10px; /* 카드 안에 패딩 추가 */
+    margin: 10px; /* 카드 간의 간격 */
+    background-color: #f9f9f9; /* 카드 배경색 */
+    width: 180px; /* 정사각형 너비 조정 */
+    height: 180px; /* 정사각형 높이 조정 */
+    display: flex; /* 플렉스 박스 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    justify-content: space-between; /* 요소 간의 간격 유지 */
+    align-items: center; /* 수평 중앙 정렬 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+  }
+  
+  .button-container {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: space-between; /* 버튼을 양쪽 끝으로 배치 */
+    width: 100%; /* 버튼 컨테이너의 너비를 100%로 설정 */
+    margin-top: 10px; /* 버튼 간의 간격 추가 */
+  }
+  
+  .subscribe-button,
+  .unsubscribe-button {
+    margin: 0 5px; /* 버튼 간의 간격 추가 */
+  }
+  
+  .pagination {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: center; /* 버튼들을 가로 중앙 정렬 */
+    margin-top: 20px; /* 페이지네이션과 주제 목록 간의 간격 추가 */
+  }
+  
+  .pagination button {
+    margin: 0 5px; /* 버튼 간의 간격 추가 */
+  }
+  
