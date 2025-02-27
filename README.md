@@ -19,3 +19,11 @@
 - **데이터베이스**: Mysql
 - **웹 서버**: Nginx
 - **도구**: Docker, Docker Compose
+
+## 화면
+- 회원가입<img width="1710" alt="스크린샷 2025-02-27 오후 3 49 49" src="https://github.com/user-attachments/assets/b045cf25-e329-4933-b15c-431085387d9e" />
+- 로그인 <img width="1710" alt="스크린샷 2025-02-27 오후 3 50 01" src="https://github.com/user-attachments/assets/24bb115e-c68c-4473-9f1a-7a1ace97e190" />
+- 구독, 구독 취소 <img width="1710" alt="스크린샷 2025-02-27 오후 3 50 21" src="https://github.com/user-attachments/assets/a7369b31-e4ce-411d-8e85-cc8b68edc6db" />
+- 알림 <img width="1709" alt="스크린샷 2025-02-27 오후 3 51 02" src="https://github.com/user-attachments/assets/19c2fd15-f1fd-44b5-a9fb-89d3db1a1748" />
+
+
